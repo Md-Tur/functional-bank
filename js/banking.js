@@ -21,12 +21,26 @@ function updateTotalField(totalField, amount) {
     totalElement.innerText = previousTotal + amount;
 }
 
-// common function for updating main balance after deposit & withdraw
+// function for checking available balance
 
-function updateBalance(amount, isAdd) {
+function getCurrentBalance() {
     const balanceTotal = document.getElementById('balance-total');
     const balanceTotalText = balanceTotal.innerText;
     const previousBalanceTotal = parseFloat(balanceTotalText);
+    return previousBalanceTotal;
+}
+
+// common function for updating main balance after deposit & withdraw
+
+function updateBalance(amount, isAdd) {
+
+    const balanceTotal = document.getElementById('balance-total');
+    /*         
+        const balanceTotalText = balanceTotal.innerText;
+        const previousBalanceTotal = parseFloat(balanceTotalText); 
+    */
+
+    const previousBalanceTotal = getCurrentBalance();
     if (isAdd == true) {
         balanceTotal.innerText = previousBalanceTotal + amount;
     }
@@ -103,9 +117,13 @@ document.getElementById('withdraw-button').addEventListener('click', function ()
     */
 
     const withdrawAmount = getInputValue('withdraw-input');
-    if (withdrawAmount > 0) {
+    const currentBalance = getCurrentBalance();
+    if (withdrawAmount > 0 && withdrawAmount < currentBalance) {
         updateTotalField('withdraw-total', withdrawAmount);
         updateBalance(withdrawAmount, false);
+    }
+    if (withdrawAmount > currentBalance) {
+        console.log('You have not enough balance in your account!');
     }
 
 })
