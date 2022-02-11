@@ -62,8 +62,10 @@ document.getElementById('deposit-button').addEventListener('click', function () 
     balanceTotal.innerText = previousBalanceTotal + depositAmount; 
     */
     const depositAmount = getInputValue('deposit-input');
-    updateTotalField('deposit-total', depositAmount);
-    updateBalance(depositAmount, true);
+    if (depositAmount > 0) {
+        updateTotalField('deposit-total', depositAmount);
+        updateBalance(depositAmount, true);
+    }
 
 });
 
@@ -101,6 +103,9 @@ document.getElementById('withdraw-button').addEventListener('click', function ()
     */
 
     const withdrawAmount = getInputValue('withdraw-input');
-    updateTotalField('withdraw-total', withdrawAmount);
-    updateBalance(withdrawAmount, false);
+    if (withdrawAmount > 0) {
+        updateTotalField('withdraw-total', withdrawAmount);
+        updateBalance(withdrawAmount, false);
+    }
+
 })
